@@ -1,3 +1,4 @@
+#include <errno.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -13,49 +14,50 @@
 
 int main(int argc, char *argv[]) {
     if (argc < 3) {
-        printf ("Usage: %s [ -c | -l | -w ] <file>\n", argv[0]);
+        fprintf (stderr, "Usage: %s [ -c | -l | -w ] FILE ...\n", argv[0]);
+        //return 1;
+    }
+
+    for (int i=2; i<argc; i++) {    // loop through files
+        FILE *fp = fopen(argv[i], "r");
+        if (!fp) {
+        fprintf (stderr, "%s: %s\n", argv[i], strerror(errno));
         return 1;
-    }
-
-    FILE *fp = fopen(argv[2], "r");     //argv[2] = file
-    if (!fp) {
-        printf ("%s: no such file\n", argv[2]); return 1;
-    }
-
-    // get character count
-    if (strcmp(argv[1], "-c") == 0) {   //argv[1] = flag
-        int c, count = 0;
-        while ((c = fgetc(fp)) != EOF) 
-            count++;
-        printf ("%i %s\n", count, argv[2]);
-    }
-        
-    // get line count
-    else if (strcmp(argv[1], "-l") == 0) {
-        char buffer [1024];
-        int count = 0;
-        while (fgets(buffer, sizeof(buffer), fp)) {
-            if (strchr(buffer, '\n'))
-                count ++;
         }
-        printf ("%i %s\n", count, argv[2]);
-    } 
 
-    // get word count
-    else if (strcmp(argv[1], "-w") == 0) {
-        char buffer [255];  // how big a word can go, idk!?
-        int c, count = 0;
-        // no bounded check, it returns incorrect word count
-        while ((c = fscanf(fp, "%s", buffer)) != EOF)
-            count++;
-        printf ("%i %s\n", count, argv[2]);
-    }
+        // get character count
+        if (strcmp(argv[1], "-c") == 0) {
+            int c, count = 0;
+            while ((c = fgetc(fp)) != EOF) 
+                count++;
+            printf ("%5i %s\n", count, argv[i]);
+        }
+         
+        // get line count
+        else if (strcmp(argv[1], "-l") == 0) {
+            char buffer [1024];
+            int count = 0;
+            while (fgets(buffer, sizeof(buffer), fp)) {
+                if (strchr(buffer, '\n'))
+                    count ++;
+            }
+            printf ("%5i %s\n", count, argv[i]);
+        } 
+
+        // get word count
+        else if (strcmp(argv[1], "-w") == 0) {
+            char buffer [255];  // how big a word can go, idk!?
+            int c, count = 0;
+            // no bounded check, it returns incorrect word count
+            while ((c = fscanf(fp, "%s", buffer)) != EOF)
+                count++;
+            printf ("%5i %s\n", count, argv[i]);
+        }
     
-    else {
-        printf ("Usage: %s [ -c | -l | -w ] <file>\n", argv[0]);
-        return 1;
-    }
+        else
+            fprintf (stderr, "Usage: %s [ -c | -l | -w ] FILE ...\n", argv[0]);
     
-    fclose(fp);
+        fclose(fp);
+    }
     return 0;
 }
