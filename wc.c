@@ -4,25 +4,23 @@
 
 /*
  * wc clone, options are hardcoded as of now 
- * so ./wc <file> won't work, it need option
+ * so ./wc [FILE] won't work, it need option
  * will fix that later, as i get better in C
  *
  * Author: Rish
- * Date: 22 June, 2026
+ * Date: 23 June, 2026
  * License: MIT
  */
 
 int main(int argc, char *argv[]) {
-    if (argc < 3) {
+    if (argc < 3)
         fprintf (stderr, "Usage: %s [ -c | -l | -w ] FILE ...\n", argv[0]);
-        //return 1;
-    }
 
     for (int i=2; i<argc; i++) {    // loop through files
         FILE *fp = fopen(argv[i], "r");
         if (!fp) {
-        fprintf (stderr, "%s: %s\n", argv[i], strerror(errno));
-        return 1;
+        fprintf (stderr, "%s: %s: %s\n", argv[0], argv[i], strerror(errno));
+        continue;
         }
 
         // get character count
