@@ -4,7 +4,7 @@
 /*
  * copy files from source to destination
  *
- * Author: Rish
+ * Author: Rish <RishOnBash>
  * Date: 27 June, 2026
  * License: MIT
  */
@@ -29,9 +29,9 @@ int main(int argc, char *argv[]) {
     }
 
     unsigned char buffer [4096];
-    size_t _read;
-    while ((_read = fread(buffer, 1, sizeof(buffer), fps)) > 0)
-        fwrite(buffer, 1, _read, fpd);
+    size_t b_read;  // bytes read
+    while ((b_read = fread(buffer, 1, sizeof(buffer), fps)) > 0)
+        fwrite(buffer, 1, b_read, fpd);
         
     fclose(fps);
     fclose(fpd);
