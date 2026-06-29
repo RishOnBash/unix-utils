@@ -19,7 +19,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    int fds = open(argv[1], O_RDONLY);    // fps = source file
+    int fds = open(argv[1], O_RDONLY);    // fds = source file
     // create destination if does'nt exist, and set permission
     int fdd = open(argv[2], O_RDWR | O_CREAT, 0644);
 
