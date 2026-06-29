@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
     }
 
     unsigned char buffer [BUFSIZ];
-    size_t b_read;  // bytes read
+    ssize_t b_read;  // bytes read
     while ((b_read = read(fds, buffer, BUFSIZ)) > 0)
         write(fdd, buffer, b_read);
         
