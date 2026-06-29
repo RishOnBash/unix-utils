@@ -1,40 +1,48 @@
 #include <errno.h>
+#include <fcntl.h>
 #include <stdio.h>
+#include <string.h>
+#include <unistd.h>
 
 /*
  * copy files from source to destination
  *
  * Author: Rish <RishOnBash>
- * Date: 27 June, 2026
+ * Date: 29 June, 2026
  * License: MIT
  */
 
 int main(int argc, char *argv[]) {
     if (argc < 3) {
-        printf ("Usage: %s <source_file> <destination_file>\n", argv[0]);
+        printf ("Usage: %s <source_file> <destination_file>\n",
+                argv[0]);
         return 1;
     }
-    FILE *fps = fopen(argv[1], "rb");    // fps = source file
-    FILE *fpd = fopen(argv[2], "wb");    // fpd = destination file
 
-    if (!fps) {
-        fprintf (stderr, "%s: source '%s': %s\n", argv[0], argv[1], strerror(errno));
+    int fds = open(argv[1], O_RDONLY);    // fps = source file
+    // create destination if does'nt exist, and set permission
+    int fdd = open(argv[2], O_RDWR | O_CREAT, 0644);
+
+    if (fds < 0) {
+        fprintf (stderr, "%s: source '%s': %s\n",
+                argv[0], argv[1], strerror(errno));
         return 11;  // source error
     }
 
-    if (!fpd) {
-        fprintf (stderr, "%s: destination '%s': %s\n", argv[0], argv[2], strerror(errno));
-        fclose(fps);
+    if (fdd < 0) {
+        fprintf (stderr, "%s: destination '%s': %s\n",
+                argv[0], argv[2], strerror(errno));
+        close(fds);
         return 22;  // destination error
     }
 
-    unsigned char buffer [4096];
+    unsigned char buffer [BUFSIZ];
     size_t b_read;  // bytes read
-    while ((b_read = fread(buffer, 1, sizeof(buffer), fps)) > 0)
-        fwrite(buffer, 1, b_read, fpd);
+    while ((b_read = read(fds, buffer, BUFSIZ)) > 0)
+        write(fdd, buffer, b_read);
         
-    fclose(fps);
-    fclose(fpd);
+    close(fds);
+    close(fdd);
 
     return 0;
 }
