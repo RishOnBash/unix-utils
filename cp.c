@@ -8,7 +8,7 @@
  * copy files from source to destination
  *
  * Author: Rish <RishOnBash>
- * Date: 29 June, 2026
+ * Date: July 1, 2026
  * License: MIT
  */
 
@@ -20,14 +20,14 @@ int main(int argc, char *argv[]) {
     }
 
     int fds = open(argv[1], O_RDONLY);    // fds = source file
-    // create destination if does'nt exist, and set permission
-    int fdd = open(argv[2], O_RDWR | O_CREAT, 0644);
 
     if (fds < 0) {
         fprintf (stderr, "%s: source '%s': %s\n",
                 argv[0], argv[1], strerror(errno));
         return 11;  // source error
     }
+    // create destination if does'nt exist, and set permission
+    int fdd = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 
     if (fdd < 0) {
         fprintf (stderr, "%s: destination '%s': %s\n",
