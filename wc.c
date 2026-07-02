@@ -8,18 +8,21 @@
  * will fix that later, as i get better in C
  *
  * Author: Rish
- * Date: 23 June, 2026
+ * Date: July 1, 2026
  * License: MIT
  */
 
 int main(int argc, char *argv[]) {
     if (argc < 3)
-        fprintf (stderr, "Usage: %s [ -c | -l | -w ] FILE ...\n", argv[0]);
+        fprintf (stderr,
+                "Usage: %s [ -c | -l | -w ] FILE ...\n",
+                argv[0]);
 
     for (int i=2; i<argc; i++) {    // loop through files
         FILE *fp = fopen(argv[i], "r");
         if (!fp) {
-        fprintf (stderr, "%s: %s: %s\n", argv[0], argv[i], strerror(errno));
+        fprintf (stderr, "%s: %s: %s\n",
+                argv[0], argv[i], strerror(errno));
         continue;
         }
 
@@ -46,14 +49,16 @@ int main(int argc, char *argv[]) {
         else if (strcmp(argv[1], "-w") == 0) {
             char buffer [255];  // how big a word can go, idk!?
             int c, count = 0;
-            // no bounded check, it returns incorrect word count
+            // no bounded check, returns incorrect word count
             while ((c = fscanf(fp, "%s", buffer)) != EOF)
                 count++;
             printf ("%5i %s\n", count, argv[i]);
         }
     
         else
-            fprintf (stderr, "Usage: %s [ -c | -l | -w ] FILE ...\n", argv[0]);
+            fprintf (stderr,
+                    "Usage: %s [ -c | -l | -w ] FILE ...\n",
+                    argv[0]);
     
         fclose(fp);
     }
