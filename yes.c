@@ -1,12 +1,13 @@
-#include <stdio.h>
-
 /*
+ * yes clone
  * Repeatedly output a line with specified STRING, or 'y'
  *
  * Author: Rish <RishOnBash>
- * Date: 29 June, 2026
+ * Date: August 5, 2026
  * License: MIT
  */
+
+#include <stdio.h>
 
 int main(int argc, char *argv[]) {
     if (argc == 1)

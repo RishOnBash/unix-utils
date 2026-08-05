@@ -1,12 +1,12 @@
-#include <stdio.h>
-
 /*
- * touch command clone
+ * touch clone
  *
  * Author: Rish
- * Date: 15 June, 2026
+ * Date: August 5, 2026
  * License: MIT
  */
+
+#include <stdio.h>
 
 int main(int argc, char *argv[]) {
     if (argc < 2) {
