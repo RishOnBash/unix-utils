@@ -1,16 +1,16 @@
-#include <errno.h>
-#include <stdio.h>
-#include <string.h>
-
 /*
- * wc clone, options are hardcoded as of now 
+ * wc clone - options are hardcoded as of now 
  * so ./wc [FILE] won't work, it need option
  * will fix that later, as i get better in C
  *
  * Author: Rish
- * Date: July 1, 2026
+ * Date: August 5, 2026
  * License: MIT
  */
+
+#include <errno.h>
+#include <stdio.h>
+#include <string.h>
 
 int main(int argc, char *argv[]) {
     if (argc < 3)

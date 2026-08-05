@@ -1,16 +1,16 @@
+/* 
+ * cat clone - display file contents to STDOUT
+ *
+ * Author: Rish <RishOnBash>
+ * Date: August 5, 2026
+ * License: MIT
+ */
+
 #include <errno.h>
 #include <fcntl.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
-
-/* 
- * display file contents to STDOUT
- *
- * Author: Rish <RishOnBash>
- * Date: 29 June, 2026
- * License: MIT
- */
 
 int main(int argc, char *argv[]) {
     ssize_t b_read;     //bytes read

@@ -1,16 +1,16 @@
+/*
+ * cp clone - copy files from source to destination
+ *
+ * Author: Rish <RishOnBash>
+ * Date: August 5, 2026
+ * License: MIT
+ */
+
 #include <errno.h>
 #include <fcntl.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
-
-/*
- * copy files from source to destination
- *
- * Author: Rish <RishOnBash>
- * Date: July 1, 2026
- * License: MIT
- */
 
 int main(int argc, char *argv[]) {
     if (argc < 3) {
