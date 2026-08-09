@@ -2,7 +2,7 @@
  * stat clone - display file system status
  *
  * Author: Rish <RishOnBash>
- * Date: August 8, 2026
+ * Date: August 9, 2026
  * License: MIT
  */
 
@@ -24,7 +24,7 @@ int main(int argc, char **argv) {
 
     for (int i = 1; i < argc; i++) {
         if (stat(argv[i], &buf) < 0) {
-            dprintf(2, "%s: %s: %s\n",
+            dprintf(2, "%s: cannot stat '%s': %s\n",
                     argv[0], argv[i], strerror(errno));
         return -1;
         }
