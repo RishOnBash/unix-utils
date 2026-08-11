@@ -26,7 +26,7 @@ int main(int argc, char **argv) {
         if (stat(argv[i], &buf) < 0) {
             dprintf(2, "%s: cannot stat '%s': %s\n",
                     argv[0], argv[i], strerror(errno));
-        return -1;
+        continue;
         }
 
         printf("    File: %s\n", argv[i]);
